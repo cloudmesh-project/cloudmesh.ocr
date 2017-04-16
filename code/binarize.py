@@ -10,9 +10,13 @@ Binarization
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
+import os
 
-image_path = 'sample1.png'
-image_arr = cv2.imread(image_path, 0)
+par_dir = os.path.abspath(os.path.pardir)
+image_dir = os.path.join(par_dir, 'images')
+test_image_path = os.path.join(image_dir, 'sample1.png')
+#image_path = 'sample1.png'
+image_arr = cv2.imread(test_image_path, 0)
 
 plt.figure(1)
 plt.subplot(311)
@@ -47,3 +51,6 @@ plt.subplot(312)
 plt.imshow(image_arr, 'gray')
 plt.subplot(313)
 plt.imshow(img_bin, 'gray')
+saving_path = os.path.join(image_dir, 'bin_result.png')
+plt.savefig(saving_path, cmap="gray")
+print "successful"
