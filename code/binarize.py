@@ -9,7 +9,7 @@ Binarization
 """
 import numpy as np
 import cv2
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import os
 
 par_dir = os.path.abspath(os.path.pardir)
@@ -50,7 +50,8 @@ for i in range(image_arr.shape[0]):
 #plt.subplot(312)
 #plt.imshow(image_arr, 'gray')
 #plt.subplot(313)
-plt.imshow(img_bin, 'gray')
-saving_path = os.path.join(image_dir, 'bin_result.png')
-plt.savefig(saving_path, cmap="gray")
+#plt.imshow(img_bin, 'gray')
+saving_path = os.path.join(image_dir, 'bin_result.pbm')
+#plt.savefig(saving_path, cmap="gray")
+cv2.imwrite(saving_path, img_bin)
 print "successful"
