@@ -18,10 +18,10 @@ test_image_path = os.path.join(image_dir, 'sample1.png')
 #image_path = 'sample1.png'
 image_arr = cv2.imread(test_image_path, 0)
 
-plt.figure(1)
-plt.subplot(311)
+#plt.figure(1)
+#plt.subplot(311)
 # Plot histogram of data
-plt.hist(image_arr.flatten())
+#plt.hist(image_arr.flatten())
 
 hist, bin_centers = np.histogram(image_arr)
 
@@ -47,9 +47,9 @@ for i in range(image_arr.shape[0]):
 #plt.imshow(img_bin)
 
 
-plt.subplot(312)
-plt.imshow(image_arr, 'gray')
-plt.subplot(313)
+#plt.subplot(312)
+#plt.imshow(image_arr, 'gray')
+#plt.subplot(313)
 plt.imshow(img_bin, 'gray')
 saving_path = os.path.join(image_dir, 'bin_result.png')
 plt.savefig(saving_path, cmap="gray")
