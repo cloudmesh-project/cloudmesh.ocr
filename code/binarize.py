@@ -11,9 +11,10 @@ import numpy as np
 import cv2
 #import matplotlib.pyplot as plt
 import os
-
-par_dir = os.path.abspath(os.path.pardir)
-image_dir = os.path.join(par_dir, 'images')
+ 
+dir_path = os.path.dirname(os.path.realpath(__file__))
+dir_path_sep = os.path.split(dir_path)
+image_dir = os.path.join(dir_path_sep[0], 'images')
 test_image_path = os.path.join(image_dir, 'sample1.png')
 #image_path = 'sample1.png'
 image_arr = cv2.imread(test_image_path, 0)
@@ -51,7 +52,7 @@ for i in range(image_arr.shape[0]):
 #plt.imshow(image_arr, 'gray')
 #plt.subplot(313)
 #plt.imshow(img_bin, 'gray')
-saving_path = os.path.join(image_dir, 'bin_result.pbm')
+saving_path = os.path.join(image_dir, 'bin_result.png')
 #plt.savefig(saving_path, cmap="gray")
 cv2.imwrite(saving_path, img_bin)
 print "successful"
