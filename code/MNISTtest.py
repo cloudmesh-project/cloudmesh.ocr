@@ -20,9 +20,9 @@ for i in range(len(mnist_train)):
     label_vec[i] = mnist_train[i][0]
     flt_img_arr[i, :] = mnist_train[i][1].flatten()
 
-#knn = cv2.ml.KNearest_create()
-knn = cv2.KNearest()
-knn.train(flt_img_arr, label_vec)
+# knn = cv2.ml.KNearest_create()  # For OpenCV 3
+#knn = cv2.KNearest()
+#knn.train(flt_img_arr, label_vec)
 
 mnist_test = list(mnist_read(dataset='testing', path=mnist_path))
 img_size_test = mnist_test[0][1].size
