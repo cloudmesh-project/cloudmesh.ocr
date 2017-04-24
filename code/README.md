@@ -5,6 +5,14 @@ This Ansible Galaxy project installs and runs an Optical Character Recognition
 session on a portion of a database of 74k images. The session will run on a
 cluster of multiple VM's in the Chameleon Cloud.
 
+Requirements
+================
+
+You are expected to use a Linux machine which has the following packages installed:
+- Git
+- Cloudmesh (and having a valid cloudmesh.yaml file for accessing Chameleon Cloud)
+- Ansible
+
 How to use
 ================
 
