@@ -28,7 +28,9 @@ ret,result,neighbours,dist = knn.find_nearest(test_images, k=5)  # Took 20second
 matches = (result.squeeze()==test_labels.squeeze())
 correct = np.count_nonzero(matches)
 accuracy = correct*100.0/result.size
+np.savetxt("test_labels.csv", result, delimiter=",")
 print accuracy
+print "Finished training and testing KNN"
 
 # Results:
     # n=50: 20 seconds to run => 65% accuracy
