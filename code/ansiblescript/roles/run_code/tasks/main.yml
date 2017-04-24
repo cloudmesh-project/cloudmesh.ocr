@@ -1,0 +1,5 @@
+---
+- name: Run a python code
+  shell: python /tmp/GitRep/code/Chars74kTest.py
+  become: yes
+

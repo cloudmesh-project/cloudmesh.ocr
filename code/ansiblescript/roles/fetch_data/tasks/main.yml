@@ -1,0 +1,7 @@
+---
+#- name: Download and unarchive Chars74k dataset
+- unarchive:
+    src: http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/EnglishFnt.tgz
+    dest: /tmp/GitRep
+    remote_src: True
+

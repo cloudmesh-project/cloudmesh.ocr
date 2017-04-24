@@ -1,0 +1,13 @@
+---
+# Fetch the results from the VMs
+#- fetch:
+#    src: test_labels.csv
+#    dest: ~/ocr/results/result-{{ inventory_hostname }}
+#    flat: yes
+#    fail_on_missing: yes
+
+- fetch:
+    src: test_accuracy.txt
+    dest: ~/ocr/results/accuracy-{{ inventory_hostname }}
+    flat: yes
+    fail_on_missing: yes

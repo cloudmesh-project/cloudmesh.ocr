@@ -1,0 +1,9 @@
+---
+- hosts: all
+
+  roles:
+    - install_git
+    - install_opencv
+    - fetch_code
+    - fetch_data
+

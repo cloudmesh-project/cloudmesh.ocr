@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#echo 'Benchmark Bash file opened'
+echo "[defaults]
+host_key_checking = False" >> ~/ocr/code/ansiblescript/ansible.cfg
+mkdir ~/ocr/results
+ansible-playbook -i ~/ocr/code/ansiblescript/inventory.txt ~/ocr/code/ansiblescript/run_ocr.yml
+echo "Benchmarking finished"
+echo "Accuracy in % = "
+for file in ~/ocr/results/*
+do
+  cat "$file"
+done
