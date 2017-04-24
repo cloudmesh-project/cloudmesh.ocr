@@ -29,7 +29,7 @@ matches = (result.squeeze()==test_labels.squeeze())
 correct = np.count_nonzero(matches)
 accuracy = correct*100.0/result.size
 np.savetxt("test_labels.csv", result, delimiter=",")
-np.savetxt("test_accuracy.txt", accuracy)
+np.savetxt("test_accuracy.txt", np.reshape(accuracy, [1,1]), fmt='%2.4G')
 
 # Results:
     # n=50: 20 seconds to run => 65% accuracy
