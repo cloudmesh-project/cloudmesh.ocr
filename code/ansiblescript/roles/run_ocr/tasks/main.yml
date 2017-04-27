@@ -1,0 +1,11 @@
+---
+- name: Run a python code
+  shell: python /tmp/GitRep/code/OCR.py "{{ image_url }}"
+  become: yes
+
+- fetch:
+    src: OCRresult.txt
+    dest: ~/ocr/ocr_results/OCRresult-{{ inventory_hostname }}
+    flat: yes
+    fail_on_missing: yes
+

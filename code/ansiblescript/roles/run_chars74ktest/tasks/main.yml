@@ -1,0 +1,11 @@
+---
+- name: Run a python code
+  shell: python /tmp/GitRep/code/Chars74kTest.py
+  become: yes
+
+- fetch:
+    src: test_accuracy.txt
+    dest: ~/ocr/accuracy/accuracy-{{ inventory_hostname }}
+    flat: yes
+    fail_on_missing: yes
+

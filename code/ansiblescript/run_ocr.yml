@@ -1,7 +1,0 @@
----
-- hosts: all
-
-  roles:
-    - run_code
-    - fetch_result
-

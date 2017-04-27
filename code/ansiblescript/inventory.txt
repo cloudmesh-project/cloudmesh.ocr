@@ -1,3 +1,0 @@
-[all]
-ssheybani-006 ansible_ssh_host="129.114.33.211" ansible_ssh_user="cc"
-ssheybani-007 ansible_ssh_host="129.114.33.106" ansible_ssh_user="cc"

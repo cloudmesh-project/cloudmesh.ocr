@@ -34,10 +34,10 @@ class DeployCommand(PluginCommand):
 		#print("Cluster Selected")
 		#subprocess.call("cd ~/ocr")
 		#subprocess.call("pwd")
-		os.system('~/ocr/code/deploy_cluster_bash')
+		os.system('~/ocr/code/deploy_cluster.sh')
 		#subprocess.call(['~/ocr/deploy_cluster_bash'])
 	elif arguments.stack:
 		#print("Stack selected")
-		os.system('~/ocr/code/deploy_stack_bash')
+		os.system('~/ocr/code/deploy_stack.sh')
 		#subprocess.call("./deploy_stack_bash")
 	

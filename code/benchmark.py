@@ -16,5 +16,5 @@ class DeployCommand(PluginCommand):
           Usage:
                 benchmark
         """
-		os.system('~/ocr/code/benchmark_bash')
+		os.system('~/ocr/code/benchmark.sh')
 		
