@@ -26,7 +26,7 @@ def ocr(image_arr):
     """
     
     # Load the train data.
-    ch74_labels, ch74_images = char74kdata()
+    ch74_labels, ch74_images = char74kdata(300)
     
     # Convert to numpy array form and flatten the images.
     train_labels = np.asarray(ch74_labels, dtype=np.float32)
