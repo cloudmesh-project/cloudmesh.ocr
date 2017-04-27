@@ -72,10 +72,14 @@ def ocr(image_arr):
 
 if __name__ == "__main__":
     import sys
-    from PIL import Image
-    import urllib, cStringIO
+    #from PIL import Image
+    import urllib #, cStringIO
     image_url = sys.argv[1]
     #image_url="https://arturshams.files.wordpress.com/2015/07/sample2.png"
-    myfile = cStringIO.StringIO(urllib.urlopen(image_url).read())
-    img = np.array(Image.open(myfile))
+    #myfile = cStringIO.StringIO(urllib.urlopen(image_url).read())
+    #img = np.array(Image.open(myfile))
+    
+    resp = urllib.urlopen(image_url)
+	arr = np.asarray(bytearray(resp.read()), dtype="uint8")
+	img = cv2.imdecode(arr, -1)
     ocr(img)
