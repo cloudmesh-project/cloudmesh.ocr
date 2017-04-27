@@ -31,15 +31,29 @@ deploy stack, and benchmark.
 However, an easier and less error-prone way to run the project is to simply run
 the following bash files:
 
-deploy_cluster_bash: Creates a cluster of multiple nodes (the number can be
-changed easily in the file) on Chameleon Cloud. E.g.:
+deploy_cluster: Creates a cluster of multiple nodes (the number can be
+changed easily in the file) on Chameleon Cloud.
+
+deploy_stack: Installs the necessary packages on the cluster nodes.
+
+benchmark: Runs the OCR on the cluster nodes. The input data in this case is the
+standard database of Chars74k. 200 different fonts of all the Alphanumeric glyphs
+(0-9, A-Z, a-z) will be separated into two parts, train and test. The KNN classifier
+will classify the test data, after being trained by the train data. The accuracy
+of the classifier will be returned as the result.
+
+ocr: Runs the whole algorithm on an image. After running the module, the user will
+be prompted to enter the URL of the input image.
+
+Commands:
 
 ```
-$ bash ~/ocr/code/deploy_cluster_bash
-
+$ bash ~/ocr/code/deploy_cluster.sh
+$ bash ~/ocr/code/deploy_stack.sh
+$ bash ~/ocr/code/benchmark.sh
+$ bash ~/ocr/code/ocr.sh
 ```
-deploy_stack_bash: Installs the necessary packages on the cluster nodes.
 
-benchmark_bash: Runs the OCR on the cluster nodes.
-
-The results will be saved in ocr/results.
+The results of benchmark will be saved in ocr/accuracy and the results of OCR will
+be saved in ocr/ocr_results. These directories will be created automatically.
+The results will also be printed in the terminal.
