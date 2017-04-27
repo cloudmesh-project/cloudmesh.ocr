@@ -1,7 +1,6 @@
 #import sys
 import cv2
 import numpy as np
-from scipy import stats
 
 def denoise_median(image_arr):
     # Mode Filter
@@ -9,13 +8,14 @@ def denoise_median(image_arr):
     for i in range(1, image_arr.shape[0]-2):
         for j in range(1, image_arr.shape[1]-1):
             block = image_arr[i-1:i+2, j-1:j+2]
-            img_denoised[i, j] = stats.mode(block.flatten())[0][0]
+            #img_denoised[i, j] = stats.mode(block.flatten())[0][0]
+            img_denoised[i, j] = max(set(block.flatten()), key=list(block.flatten()).count)
     return img_denoised
 
 """
 #Test Case
 from matplotlib import pyplot as plt
-img = cv2.imread('SaltAndPepper_Input.png')
+image_arr = cv2.imread('sample9.png')
 
 plt.subplot(121),plt.imshow(img),plt.title('Original')
 plt.xticks([]), plt.yticks([])
