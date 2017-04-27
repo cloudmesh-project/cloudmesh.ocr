@@ -59,7 +59,7 @@ def ocr(image_arr):
     result=[]
     for i, line in enumerate(forming_page):
         letter_arr = line2arr(line)
-        ret, resulting_labels, neighbours, dist = knn.find_nearest(letter_arr, k=31)
+        ret, resulting_labels, neighbours, dist = knn.find_nearest(letter_arr, k=10)
         line_text = [label2char(lbl) for lbl in resulting_labels]
         result.append(line_text)
     np.savetxt('OCRresult.txt', result, fmt='%s')
