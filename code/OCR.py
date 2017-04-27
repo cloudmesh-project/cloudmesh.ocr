@@ -12,7 +12,7 @@ from ExtractChars74Kdataset import char74kdata, label2char
 from Binarization import binarize_otsu
 from Denoising import denoise_median
 from Segment import segment, line2arr
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 
 def ocr(image_arr):
