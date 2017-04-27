@@ -26,7 +26,7 @@ def ocr(image_arr):
     """
     
     # Load the train data.
-    ch74_labels, ch74_images = char74kdata(300)
+    ch74_labels, ch74_images = char74kdata(200)
     
     # Convert to numpy array form and flatten the images.
     train_labels = np.asarray(ch74_labels, dtype=np.float32)
@@ -34,9 +34,11 @@ def ocr(image_arr):
     for i in range(len(ch74_images)):
         train_images[i, :] = ch74_images[i].flatten()
     
+    del ch74_images, ch74_labels
+
     # Train
     knn.train(train_images, train_labels)
-    del ch74_images
+    
     
     """
     Running recognition session on a sample image.
