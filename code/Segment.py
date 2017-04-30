@@ -180,10 +180,54 @@ def reshape2temp(im1, new_size=16384):
 
 
 if __name__ == "__main__":
-    #import matplotlib.pyplot as plt
+
     image_path = 'sample3.jpg'
     image_arr = cv2.imread(image_path, 0)
     forming_page = segment(image_arr)
+        """
+    import matplotlib.pyplot as plt
+    fig = plt.figure()
+    plt.axis('off')
+    fig.suptitle("Last Line Segmented", fontsize=16)
+    ax = plt.subplot("191")
+    ax.set_yticklabels([])
+    ax.set_xticklabels([])
+    ax.imshow(reshape2temp(forming_page[2][0][0]), cmap='gray')
+    ax = plt.subplot("192")
+    ax.set_yticklabels([])
+    ax.set_xticklabels([])
+    ax.imshow(reshape2temp(forming_page[2][0][1]), cmap='gray')
+    ax = plt.subplot("193")
+    ax.set_yticklabels([])
+    ax.set_xticklabels([])
+    ax.imshow(reshape2temp(forming_page[2][0][2]), cmap='gray')
+    ax = plt.subplot("194")
+    ax.set_yticklabels([])
+    ax.set_xticklabels([])
+    ax.imshow(reshape2temp(forming_page[2][0][3]), cmap='gray')
+    ax = plt.subplot("195")
+    ax.set_yticklabels([])
+    ax.set_xticklabels([])
+    ax.imshow(reshape2temp(forming_page[2][1][0]), cmap='gray')
+    ax = plt.subplot("196")
+    ax.set_yticklabels([])
+    ax.set_xticklabels([])
+    ax.imshow(reshape2temp(forming_page[2][1][1]), cmap='gray')
+    ax = plt.subplot("197")
+    ax.set_yticklabels([])
+    ax.set_xticklabels([])
+    ax.imshow(reshape2temp(forming_page[2][1][2]), cmap='gray')
+    ax = plt.subplot("198")
+    ax.set_yticklabels([])
+    ax.set_xticklabels([])
+    ax.imshow(reshape2temp(forming_page[2][1][3]), cmap='gray')
+    ax = plt.subplot("199")
+    ax.set_yticklabels([])
+    ax.set_xticklabels([])
+    ax.imshow(reshape2temp(forming_page[2][2][0]), cmap='gray')
+    
+    plt.savefig('sample3segmented.pdf')
+    """
     letter_arr = line2arr(forming_page[1])
     new_im = reshape2temp(forming_page[0][1][0])
     

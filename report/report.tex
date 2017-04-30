@@ -22,18 +22,17 @@
 
 
 \begin{abstract}
-Optical Character Recognition is a technology for converting images
+Optical Character Recognition is a technology for converting images of texts,
 into machine encoded text format. In this project, the input data is
 in standard image formats and our goal is to recognize the words/letters in the
 image as accurately as possible and convert the dataset into TXT
-format. The heart of OCR is a classification algorithm which will be
-implemented using Python programming language. The algorithm will be
-deployed using the Ansible technology \cite{www-ansible}  to remote clusters
-of virtual machines.
+format. The heart of OCR as a pattern recognition system is a classifier.
+The images will go through a pre-processing phase which will convert them
+into a form that is compatible for feeding to the classifier. Then the classifier
+will determine the class of each glyph in the image. The whole recognition system
+is installed and operated on the cloud.
 \newline
 \end{abstract}
-
-
 
 \begin{document}
 
@@ -83,19 +82,21 @@ period of the course.  The steps followed to achieve the final results.
 \subsection{OCR Technology}  
  
 Optical Character Recognition is a technology which is used to convert
-different types of documents that can be in the form of scanned papers
-(raster images) or PDF into an editable and searchable form  \cite{www-ocr}. The
-images can be in either the basic black \& white or colored.  The
-technology first analyzes the structure of the document and divides it
-into smaller segments. Finally, individual characters are singled out
+different types of documents that can be in the form of scanned documents,
+including handwritten or machine-written into an editable and searchable
+form  \cite{www-ocr}. 
+The images can be in either the basic black \& white or colored.  The
+technology analyzes the structure of the document and divides it
+into small refined segments, so that each segment contains one character.
+Finally, individual characters are singled out
 one by one and fed to a classification algorithm which will return the
 closest letter that the individual character could possibly be
 identified with.
 
 \section {SYSTEM CONFIGURATION AND TECHNOLOGIES USED}
 \subsection{System Configuration}
-The python codes and the libraries are run on a Ubuntu 16-04 Virtual
-box which in setup on a Windows 10 PC.
+The python codes and the libraries are run on a Ubuntu 16.04 LTS.
+
 \subsection{Technologies Used}
 \begin{enumerate}
   \item {\bfseries Python Programming Language} : An object oriented
@@ -107,10 +108,10 @@ box which in setup on a Windows 10 PC.
 \item{\bfseries OpenCV } : OpenCV is an open source computer vision
   library.  It is used for building computer vision applications. It
   consists of more than 2500 algorithms including both machine
-  learning and computer vision algorithms. These algorithms are
+  learning and computer vision algorithms \cite{opencv-about}. These algorithms are
   devised for facial and image recognition, track any moving objects
-  etc. We have used OpenCV for performing various preprocessing on our
-  dataset, thus giving faster and more accurate results.
+  etc. We have used OpenCV 2 for creating a KNN classifier and a few
+  of our preprocessing techniques.
   
   \item{\bfseries Ansible} : Ansible is an IT automation tool. It uses
     YAML in order to issue the state of the server
@@ -121,54 +122,71 @@ box which in setup on a Windows 10 PC.
     requirement to instal an additional software on the target system
     as the commands are run over an SSH session.
   \item{\bfseries Cloudmesh Client} : It is an open source client
-    interface tool that provides us an access to different clouds,
-    cluster and the workstations.We can manage the resources we would
+    interface tool that provides us with an easy-to-use interface for
+    accessing cloud services, creating single and multiple VMs, 
+    clusters and workstations.We can manage the resources we would
     like to use and customize them as per our requirement to run the
     projects.\\ It provides an interface to execute jobs on High
-    Performance Computing clusters\cite{cloudmesh}.The users can use
+    Performance Computing clusters \cite{cloudmesh}.The users can use
     just one platform to manage all of the cloud resources. Cloudmesh
     client creates a local copy of the data which results in clouds
     with similar configurations to be created as well.  The default
     features of the Cloudmesh Client allows easy control of the cloud
     as well. Cloudmesh includes an API, commandline client and a
-    commandline shell
+    commandline shell.
 
-\item{\bfseries Chameleon Cloud} :Chameleon cloud provides both
-  OpenStack Cloud (kilo) using the KVM virtualization
-  technology\cite{www-chameleon-openstack}. It is an Infrastructure as
-  a Service(IaaS) platform that allows us to create as well as manage
-  the virtual environment.  The virtual machine that we use here is
-  compatible with KVM. Chameleon Cloud also gives access to the
-  bare-metal computing resources, which allows administrative rights to
-  use cloud for computing experiments\cite{www-chameleon-baremetal}.
-  
 \begin{figure}
 \centering
 \fbox{\includegraphics[width=\linewidth]{images/cloudmesh.png}}
-\caption{Architecture of Cloudmesh Client}\cite{cloudmesh}
+\caption{Architecture of Cloudmesh Client \cite{cloudmesh}}
 \label{Architecture of Cloudmesh Client}
 \end{figure}
 
-\item{\bfseries Ansible Deployment} We will be using Ansible
-  \cite{www-ansible} for running the OCR algorithm. The jobs will be
-  collected and organized in a Playbook \cite{www-ansible-playbook}
-  and run on virtual clusters provided by Chameleon Cloud
-  \cite{www-chameleoncloud}.  The tasks will include Installing the
-  essential libraries on the remote machine and running the program.
-
+\item{\bfseries Chameleon Cloud} :Chameleon cloud provides
+  OpenStack Cloud (kilo) using the KVM virtualization
+  technology \cite{www-chameleon-openstack}. It is an Infrastructure as
+  a Service(IaaS) platform that allows us to create as well as manage
+  the virtual environment. The virtual machine that we use here is
+  compatible with KVM. Chameleon Cloud also gives access to the
+  bare-metal computing resources, which allows administrative rights to
+  use cloud for computing experiments \cite{www-chameleon-baremetal}.
 \end{enumerate}
 
-\section {ALGORITHMS USED}
+
+\section{Method Survey}
+
+Optical Character Recognition have already been developed in numerous
+ways, focusing on different goals. We did a survey on the possible
+approaches for character recognition.
+
+The main components of every OCR system can be enumerated as feature
+extraction component, and the classifier.
+
+Feature extraction methods can be separated into two groups:
+Template matching, and Structural classification \cite{borovikov2014survey}.
+In \textbf{Template matching}, the individual pixels of the image
+are directly used as features. For each possible character, there is 
+one class and one template feature set, associated with it. In classification,
+a similarity metric will evaluate the distance of the input character to each
+of the templates. And thus, the input will be represented with the class of
+the most similar template.
+
+In \textbf{structural classification} structural features of every
+character, such as loops and curves, are used as features.
+
+There are various types of classification methods. A number of methods that
+have been used for OCR are Nearest-Neighbor, Artificial Neural Networks,
+and Support Vector Machines. K-Nearest Neighbor and Artificial Neural Networks
+are discussed further as the candidates for our job.
 
 \subsection {K Nearest Neighbour}
-It is a non parametric algorithm where each of the training data is considered to have a set of vectors and a class label associated with each vectors.The labels would be + or - for each vector.The training set will have the labels for the classes , given the test set it calculates the distance between the training set and the test set and calculate the nearest points. A single value of 'k' is given which allows us to decide how many neighbours influence the classification. We have used euclidean distance as the distance metric to calculate the nearest neighbours for the 'k' value. \\
-Euclidean Distance\\$ d(p,q) = \sqrt{ \sigma(p_i - q_i)^2}$\\
-When choosing a value for k we made sure that it is not either too small and have it sensitive to the noise or make it too large which might result in including the points from other classes.
+It is a non parametric algorithm where each of the training data is considered to have a set of vectors and a class label associated with each vectors. The training set will have the labels for the classes , given the test set it calculates the distance between the training set and the test set and calculate the nearest points. A single value of 'K' is given which allows us to decide how many neighbours influence the classification. Figure \ref{fig:knn} displays a schema of KNN classification.
 
 \begin{figure}
 \centering
 \fbox{\includegraphics[width=\linewidth]{images/knn.png}}
-\caption{Averaging of a pixel in median filter}\cite{steinbach-book}
+\caption{Example of k-NN classification \cite{steinbach-book}}
+\label{fig:knn}
 \end{figure}
 
 \subsection{Feed Forward Neural Networks}
@@ -185,26 +203,25 @@ iteration of classification will be fed back from the output to the
 network, in order to modify and improve the network for next
 iterations.
 
-\section{OCR Implementation}
+Due to simplicity and relatively good performance of KNN, we choose it 
+as the classifier for this project. There is an easy to use implementation
+of it in OpenCV library.
+Our KNN uses euclidean distance as the distance metric to calculate the nearest neighbours for the 'K' value. \\
+Euclidean Distance\\$ d(p,q) = \sqrt{ \sigma(p_i - q_i)^2}$\\
+For the value of K, 5 is chosen so that it is neither too small and sensitive to the noise nor too large which might result in including the points from other classes.
 
-Optical Character Recognition have already been developed in numerous
-ways, focusing on different goals. For our purpose, various
-classification algorithms such as K-Nearest Neighbor and Neural
-Network (multilayer perceptron) can be used. For this project, a
-feedforward, back-propagation Neural Network will be used. The steps
-are as follows: Preprocessing: The input images need to be segmented
+\section {Preprocessing Techniques}
+
+The steps in an OCR full session are as follows:
+Preprocessing: The input images need to be segmented
 into units that each of them keep only one glyph (symbol). Also, the
-colored or grayscale images will be binarized.  Feature extraction:
-The glyphs will be decomposed into features like lines, closed loops,
-line direction, and line intersections.  Character recognition: The
-image features will be fed to the neural network and they will be
+colored or grayscale images will be binarized.  
+Feature extraction: The glyphs will be decomposed into features like lines, closed loops,
+line direction, and line intersections.  
+Character recognition: The
+image features will be fed to the classifier and they will be
 compared with stored glyph features and the nearest match will be
-chosen, after multiple iterations of classification by the network.
-
-\section{Pre processing the data}
-
-
-\textbf{Preprocessing Techniques} :
+chosen.
 
 Preprocessing is required on the raw images that we are using to
 filter out the required subject and distinguish from any other
@@ -240,10 +257,11 @@ visibility of the characters’ present on the image.
 It is a non-linear noise reduction technique , it is a low pass
 filter. In this case the pixel values are taken for an area on the
 image and an average of the pixel value is taken and assigned to the
-center pixel in that area. It is an effective means for removing the
+center pixel in that area. Figure \ref{fig:median-schema} displays a schema of
+how median filter works. It is an effective means for removing the
 salt and pepper noise which are random lines occurring on the image
 due to poor quality of the picture or if the image wasn’t scanned
-well.\cite{medianfilterpreprocessing}Figure \ref{fig:median} shows the result of
+well \cite{medianfilterpreprocessing}. Figure \ref{fig:median} shows the result of
 applying a median filter on a scanned image, we can see the reduction
 in dots and other marks on the image, making it more smooth and
 usable.
@@ -252,8 +270,8 @@ usable.
 \begin{figure}[H]
 \centering
 \fbox{\includegraphics[width=\linewidth]{images/pasted.png}}
-\caption{Averaging of a pixel in median filter}\cite{medianfilterpreprocessing}
-\label{fig:Illustration of an OCR system}
+\caption{Averaging of a pixel in median filter \cite{medianfilterpreprocessing}}
+\label{fig:median-schema}
 \end{figure}
 
 \begin{figure}[H]
@@ -280,7 +298,7 @@ texture to the noisy image.
 
 \subsection{ Binarization}
 
-Otsu’s method \cite{otsu1975threshold} Otsu’s method concludes finding
+Otsu’s method \cite{otsu1975threshold}: Otsu’s method concludes finding
 the best intensity threshold to separate two classes, often background
 vs foreground but not always. The algorithm tries to find a separation
 point that has the minimum weighted within class variance.  If the
@@ -312,6 +330,15 @@ for the rows that are included in the current line. Thresholds are defined using
 expert views in typography \cite{dowding1995finer}.
 \newline
 The letter segmentation is simply done after one background column is found.
+The figure \ref{fig:segment} displays the application of our segmentation algorithm
+on a sample image.
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics[width=5 cm]{images/sample3segmented.pdf}}
+\caption{Applying segmentation}
+\label{fig:segment}
+\end{figure}
 
 \section{Application}
 
@@ -325,20 +352,18 @@ applications include creating a narrator machine to help the visually
 impaired read nondigital documents and signs, or automatic recognition
 of automobile number plates.
 
-\section{Dataset}
-The dataset used in our project for training the KNN is Chars74k \cite{chars74k-dataset}.
-This dataset provides an extensive collection of English letters and digits, 
-in handwritten form or in various computer fonts \cite{de2009character}. In this project, a subset 
-of the data, including characters from computer fonts with 4 variations (combinations
-of italic, bold and normal) was used.
-\newline
-Before this dataset, the MNIST handwritten digits database were used for preliminary 
-purposes \cite{mnist-dataset}.
 
-\section{Benchmarking}
-The VM reservations were done using Cloudmesh Client and automatic deployment of 
-program on the VMs were done using Ansible. Two Ansible playbooks are used, one for 
-deploying the software stack, and another one for running the OCR codes. The software stack
+\section{Cloud Deployment} 
+
+Automatic deployment of program on virtual environment was done using
+Ansible \cite{www-ansible} .The jobs were collected, organized in 
+Playbooks \cite{www-ansible-playbook} and run on virtual clusters provided
+by Chameleon Cloud \cite{www-chameleoncloud}.
+The tasks include Installing the essential libraries on the remote machine
+and running the program.
+The VM reservations were done using Cloudmesh Client. Three Ansible playbooks are used, one for 
+deploying the software stack, one for running the OCR codes on a standard dataset
+and another one for running it on an arbitrary image. The software stack
 required for running the program includes the following components:
 \begin{enumerate}
 \item {\bfseries Git} The Git module is needed for cloning the OCR Python codes. 
@@ -359,19 +384,65 @@ repository. An Ansible role cloned these codes into each node of the cluster.
 dataset. Unarchive module was used for this purpose.
 \end{enumerate}
 
+
+\section{Dataset}
+The dataset used in our project for training the KNN is Chars74k \cite{chars74k-dataset}.
+This dataset provides an extensive collection of English letters and digits, 
+in handwritten form or in various computer fonts \cite{de2009character}. In this project, a subset 
+of the data, including characters from computer fonts with 4 variations (combinations
+of italic, bold and normal) was used. The glyphs in this subset include 0-9, A-Z, and a-z.
+For each glyph, there are 1016 different files, each with one font. However, some of the fonts
+are similar to each other.
+\newline
+Before this dataset, the MNIST handwritten digits database were used for preliminary 
+purposes \cite{mnist-dataset}.
+
+\section{Benchmarking}
+
 After wrapping all the necessary material, the code was run in a role and the result
 was saved in text files, using another role. The accuracy of classification is printed
 in the console of the local machine.
 The program was first deployed on single VMs that were reserved manually using 
-Cloudmesh Client. Later on, a cluster of 3 nodes were created and used for running
-the program. The runtime of the program depends directly on the size of the train and 
-test data.  For instance, running a dataset of 50 images as the test and train data
+Cloudmesh Client. Later on, clusters of 2-4 nodes were used to measure the execution
+time of deployment. Note that for running the benchmark, there is a trade-off between the runtime
+and accuracy of classification. The more samples are used for training the dataset, the higher the
+accuracy will be achieved and of course the longer execution time is needed. 
+
+\subsection{Sample size analysis}
+
+Running a dataset of 50 images as the test and train data
 with K=5, takes around 20 seconds and yieds an accuracy of 65\%. The time complexity
 of the algorithm is O(n2), thus, using 100 samples will multiply the runtime by 4. 
 However, as the dataset used contains 74k images, there is still significant diversity
 among 100 images. As a result, using 100 images only improves the classification 
 accuracy up to 75\%. Changing the number of nodes does not affect the runtime, unless paralellization
 is exploited.
+
+Each VM on Chameleon Cloud has only 1 core, 2050076 kB (2 GB) of RAM, and 20 GB of storage.
+Due to small size of RAM, we had to keep the number of training samples under 200.
+
+\subsection{Cluster size analysis}
+
+In this section, the sample size is around 50 different fonts for training the classifier and another 50 for testing it.
+
+For the cluster of \textbf{2 nodes}:
+It took 67 seconds to deploy (allocate) the cluster, 153 seconds to install the software stack
+and dataset on the nodes, and 169 seconds to run the benchmark on them. The accuracy of classification on one of the nodes was 72.23 and on the other, it was 70.84.
+
+For the cluster of \textbf{3 nodes}:
+It took 98 seconds to deploy (allocate) the cluster, 170 seconds to install the stack and
+180 seconds to run the benchmark.
+
+For the cluster of \textbf{4 nodes}:
+It took 131 seconds to deploy (allocate) the cluster, 175 seconds to install the stack and
+187 seconds to run the benchmark.
+As we can see, the higher number of nodes will only add to the time of cluster creation. As the nodes are
+quite similar, the execution time of the tasks which run in parallel is similar.
+
+\subsection{OCR on arbitrary images}
+As the arbitrary images can be significantly different from 
+the standard dataset, the sample size needs to be much higher. However, due to small size of RAM, for running OCR on arbitrary images, we only used a sample size of 200. That causes the accuracy of OCR to be very low, around 20\%.
+
 
 \begin{figure}[H]
 \centering
@@ -383,6 +454,13 @@ is exploited.
 Instructions on reproduction of the project are provided in the project 
 repository \cite{git-self-code}.
 
+\section{License}
+The project is developed under the open source Apache License 2.0. The license
+file is included in the Git repository of the project.
+The packages and softwares used in developing the project include OpenCV,
+Python 2.7, Ansible, Cloudmesh. All of these packages are open-source. 
+The license file for OpenCV is included in the project repository
+(CV\_LICENSE.txt).
 
 \section{ACKNOWLEDGEMENT}
 A very special thanks to Professor Gregor von Laszewski and the

@@ -10,7 +10,7 @@ Requirements
 
 You are expected to use a Linux machine which has the following packages installed:
 - Git
-- Cloudmesh (and having a valid cloudmesh.yaml file for accessing Chameleon Cloud)
+- Cloudmesh Client (and having a valid cloudmesh.yml file for accessing Chameleon Cloud)
 - Ansible
 
 How to use
@@ -31,10 +31,9 @@ deploy stack, and benchmark.
 However, an easier and less error-prone way to run the project is to simply run
 the following bash files:
 
-deploy_cluster: Creates a cluster of multiple nodes (the number can be
-changed easily in the file) on Chameleon Cloud.
+deploy_cluster: Creates a cluster of multiple nodes on Chameleon Cloud. After running the bash file, the user will be prompted to enter the number of nodes for the cluster.
 
-deploy_stack: Installs the necessary packages on the cluster nodes.
+deploy_stack: Installs the necessary packages on the cluster nodes. If The authenticity of host is questioned or you get the WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!, just type yes and press ENTER as many times as the number of nodes. However, if the key cannot be found, run {cm key add --ssh} while having a valid key in .ssh directory.
 
 benchmark: Runs the OCR on the cluster nodes. The input data in this case is the
 standard database of Chars74k. 200 different fonts of all the Alphanumeric glyphs
